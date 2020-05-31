@@ -21,6 +21,7 @@
 #include "utils/Color.h"
 #include "utils/Digest.h"
 #include "utils/Variant.h"
+#include "utils/log.h"
 #include "windowing/WinSystem.h"
 
 using namespace KODI::GUILIB;
@@ -395,6 +396,8 @@ void CGUIEditControl::RecalcLabelPosition()
   if (m_height == 0 && m_label.GetLabelInfo().font)
     m_height = m_label.GetLabelInfo().font->GetTextHeight(1);
 
+  CLog::LogF(LOGDEBUG, "maxTextWidth = %f\nbeforeCursorWidth = %f\nafterCursorWidth = %f\nm_textOffset = %f", maxTextWidth, beforeCursorWidth, afterCursorWidth, m_textOffset);
+
   if (m_textWidth > maxTextWidth)
   { // we render taking up the full width, so make sure our cursor position is
     // within the render window
@@ -415,6 +418,8 @@ void CGUIEditControl::RecalcLabelPosition()
   }
   else
     m_textOffset = 0;
+
+  CLog::LogF(LOGDEBUG, "m_textOffset = %f", m_textOffset);
 }
 
 void CGUIEditControl::ProcessText(unsigned int currentTime)
